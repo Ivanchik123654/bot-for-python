@@ -50,20 +50,20 @@ def ask_transl(message, user_dict, words_left, correct, amount):
     chat_id = message.chat.id
     if words_left > 0:
         word, desc = random_description(user_dict)
-        bot.send_message(chat_id, f'Мира. Значение: {desc}. Введи термин')
+        bot.send_message(chat_id, f'Значение: {desc}. Введи термин')
         print(word, desc)
         bot.register_next_step_handler_by_chat_id(chat_id, check_transl, word, words_left, correct, amount)
     else:
-        bot.send_message(chat_id, f'Мира. Тест окончен. Ты решил правильно {correct}/{amount} терминов')
+        bot.send_message(chat_id, f'Тест окончен. Ты решил правильно {correct}/{amount} терминов')
 
 def check_transl(message, correct_trans, words_left, correct, amount):
     user_ans = message.text.lower()
     print(user_ans)
     if user_ans == correct_trans:
-        bot.send_message(message.chat.id, 'Мира. Правильно!')
+        bot.send_message(message.chat.id, 'Правильно!')
         correct += 1
     else:
-        bot.send_message(message.chat.id, 'Мира. Неправильно! Иди учись')
+        bot.send_message(message.chat.id, 'Неправильно! Иди учись')
     ask_transl(message, user_data[str(message.from_user.id)], words_left - 1, correct, amount)
 
 
@@ -71,7 +71,7 @@ def check_transl(message, correct_trans, words_left, correct, amount):
 def handle_help(message):
     print(message)
     bot.send_message(message.chat.id, 'Добро пожаловать! Я бот чтобы изучить базовый синтаксис Python!')
-    bot.send_message(message.chat.id, 'Мира. Список доступных команд:\n/start - Начать\n/help - Информация о боте\n/learn - Пройти тест. Ввод через пробел(команда кол-во слов)\n/addword - Добавить слово. Ввод через пробел(команда слово описание)\n/showlist - посмотреть словарь добавленных терминов')
+    bot.send_message(message.chat.id, 'Список доступных команд:\n/start - Начать\n/help - Информация о боте\n/learn - Пройти тест. Ввод через пробел(команда кол-во слов)\n/addword - Добавить слово. Ввод через пробел(команда слово описание)\n/showlist - посмотреть словарь добавленных терминов')
     bot.send_message(message.chat.id, 'Создан мной')
 
 @bot.message_handler(commands=['addword'])
@@ -89,7 +89,7 @@ def handle_add_word(message):
         user_dict[word] = translate
         user_data[str(id)] = user_dict
         dump_json()
-        bot.send_message(message.chat.id, 'Мира. Успешно добавлено!')
+        bot.send_message(message.chat.id, 'Успешно добавлено!')
         print(user_dict)
     except Exception as e:
         bot.send_message(message.chat.id, f'Произошла ошибка : {e}')
