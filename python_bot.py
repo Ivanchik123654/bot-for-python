@@ -44,7 +44,7 @@ def handle_learn(message):
         ask_transl(message, user_dict, words_left, correct, amount)
 
     except Exception as e:
-        bot.send_message(id, f'Произошла ошибка: {e}')
+        bot.send_message(message.chat.id, f'Произошла ошибка: {e}')
 
 def ask_transl(message, user_dict, words_left, correct, amount):
     chat_id = message.chat.id
